@@ -1,12 +1,10 @@
 import { BadRequestException, Injectable } from '@nestjs/common';
 import * as config from 'config';
 import * as jwt from 'jsonwebtoken';
-import { Connection } from 'typeorm';
-
 import { SigninRequestDto } from '../dto/request/signin.dto';
 import { SigninResponseDto } from '../dto/response/signin.dto';
-import { User } from '../../../entity/user';
-import { CommonAuthService } from './common/common.auth.service';
+import { crypt } from 'src/utils';
+import { UserService } from 'src/modules/user/service/user.service';
 
 const JWT_SECRET: string = config.get('jwt.jwt_secret');
 const SALT: string = config.get('account.salt');
@@ -14,20 +12,13 @@ const SALT: string = config.get('account.salt');
 @Injectable()
 export class SigninService {
   constructor(
-    private readonly connection: Connection,
-    private readonly commonAuthService: CommonAuthService,
+    private readonly userService: UserService,
   ) { }
 
   public async singin({ email, password }: SigninRequestDto): Promise<SigninResponseDto> {
     try {
-      const cryptedPassword = this.commonAuthService.cryptPassword(password, SALT);
-      const user = await this.connection
-        .getRepository(User)
-        .createQueryBuilder('user')
-        .where('user.email = :email', { email })
-        .andWhere('user.password = :cryptedPassword', { cryptedPassword })
-        .getOne();
-
+      const cryptedPassword = crypt(password, SALT);
+      const user = await this.userService.findOneBy({ email, password: cryptedPassword });
       if (!user) {
         throw new BadRequestException({ EN: 'Incorrect login or password' });
       }
@@ -39,13 +30,5 @@ export class SigninService {
     } catch (e) {
       throw new BadRequestException({ EN: 'Incorrect login or password' });
     }
-  }
-
-  public async getUserByName(name: string): Promise<User> {
-    return this.connection
-      .getRepository(User)
-      .createQueryBuilder('user')
-      .where('user.firstName = :name', { name })
-      .getOne();
   }
 }

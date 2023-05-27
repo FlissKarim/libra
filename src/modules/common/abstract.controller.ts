@@ -29,8 +29,12 @@ export abstract class AbstractController<T extends BaseEntity> {
 
   @Delete(':id')
   @UserAuthGuard()
-  public async deleteUserById(@Param('id', new ParseIntPipe()) id: number): Promise<HttpStatus> {
+  public async delete(@Param('id', new ParseIntPipe()) id: number): Promise<HttpStatus> {
     await this.repository.delete(id);
     return HttpStatus.NO_CONTENT;
   }
+
+  abstract update(...args: any): Promise<T>;
+  // abstract create(...args: any): Promise<T>;
+
 }

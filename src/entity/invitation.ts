@@ -6,7 +6,6 @@ import {
   PrimaryGeneratedColumn,
 } from 'typeorm';
 import { Event } from './event';
-import { Timestampable } from './base/timestampable';
 import { Identifiable } from './base/identifiable';
 import { Resource } from './resource';
 

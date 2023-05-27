@@ -1,3 +1,5 @@
+import * as crypto from 'crypto';
+
 export function isWritable<T extends Object>(o: T, p: keyof T) {
     const desc = Object.getOwnPropertyDescriptor(o, p) || {}
     return Boolean(desc.writable);
@@ -19,4 +21,11 @@ export function parseCSV(str: string) {
         arr[row][col] += cc;
     }
     return arr;
+}
+
+export function crypt(password: string, salt: string): string {
+    return crypto
+        .createHmac('sha512', salt)
+        .update(password)
+        .digest('hex');
 }

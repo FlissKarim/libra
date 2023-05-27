@@ -30,7 +30,7 @@ export class UserController extends AbstractController<User> {
 
   @Put()
   @UserAuthGuard()
-  public async updateUser(
+  public async update(
     @Req() { user },
     @Body() body: UpdateUserRequestDto,
   ): Promise<User> {

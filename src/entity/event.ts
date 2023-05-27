@@ -11,9 +11,6 @@ import {
 import { Resource } from './resource';
 import { Invitation } from './invitation';
 import { Planning } from './planning';
-import { SoftDeletable } from './base/soft-deletable';
-import { Blameable } from './base/blameable';
-import { Timestampable } from './base/timestampable';
 import { Identifiable } from './base/identifiable';
 
 

@@ -12,9 +12,6 @@ import {
 import { Event } from './event';
 import { Company } from './company';
 import { Configuration } from './configuration';
-import { SoftDeletable } from './base/soft-deletable';
-import { Blameable } from './base/blameable';
-import { Lockable } from './base/lockable';
 import { Identifiable } from './base/identifiable';
 import { Resource } from './resource';
 

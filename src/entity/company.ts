@@ -6,9 +6,6 @@ import {
   PrimaryGeneratedColumn,
 } from 'typeorm';
 import { Configuration } from './configuration';
-import { SoftDeletable } from './base/soft-deletable';
-import { Blameable } from './base/blameable';
-import { Timestampable } from './base/timestampable';
 import { Identifiable } from './base/identifiable';
 import { Resource } from './resource';
 

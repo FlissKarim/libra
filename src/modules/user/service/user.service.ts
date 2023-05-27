@@ -15,7 +15,7 @@ export class UserService extends BaseRepository<User> {
 
   public async getUser(id: number): Promise<User> {
     try {
-      const user = this.findById(id);
+      const user = this.findOneBy({ id });
       if (!user) {
         throw new NotFoundException({ EN: 'User is not found' });
       }

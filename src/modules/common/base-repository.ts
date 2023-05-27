@@ -1,6 +1,6 @@
 
 import { isWritable } from 'src/utils';
-import { BaseEntity, Connection, Repository, SelectQueryBuilder } from 'typeorm';
+import { BaseEntity, Connection, FindOptionsWhere, Repository, SelectQueryBuilder } from 'typeorm';
 
 export abstract class BaseRepository<T extends BaseEntity>
 {
@@ -37,6 +37,10 @@ export abstract class BaseRepository<T extends BaseEntity>
 
     async findById(id: any): Promise<T> {
         return await this.repository.findOneBy(id);
+    }
+
+    async findOneBy(field: FindOptionsWhere<T>): Promise<T> {
+        return await this.repository.findOneBy(field);
     }
 
     async create(data: any): Promise<T> {
