@@ -65,16 +65,16 @@ export class EntityFilter<T extends BaseEntity> {
         const qb = repository.getQuery();
         const whereFn = (cnd) => strategy === 'and' ? qb.andWhere(cnd) : qb.orWhere(cnd);
         Object.keys(fields).forEach(field => {
-            const target = `${qb.alias}.${field}`;
-            if (repository.isRelation(field)) {
-                qb.leftJoin(target, field)
-            } else if (repository.isColumn(field)) {
-                const cnd = this.buildCondition(target, fields[field]);
-                cnd && whereFn(cnd);
-            } else {
+            let target = `${qb.alias}.${field}`;
+            const base = field.split('.')[0];
+            if (repository.isRelation(base)) {
+                qb.leftJoin(`${qb.alias}.${base}`, base);
+                target = field;
+            } else if (!repository.isColumn(field)) {
                 throw new BadRequestException({ EN: "Unkown property." });
             }
-
+            const cnd = this.buildCondition(target, fields[field]);
+            cnd && whereFn(cnd);
         });
         return qb;
     }
@@ -87,16 +87,16 @@ export class EntityFilter<T extends BaseEntity> {
             conditions.push(`${field} is NULL`);
         } else if (operators.not) {
             if (Array.isArray(operators.not)) {
-                conditions.push(`${field} NOT IN (${operators.not.join(',')})`);
+                conditions.push(`${field} NOT IN (${operators.not.map(e => `\"${e}\"`).join(',')})`);
             } else {
-                conditions.push(`${field} <> ${operators.not}`);
+                conditions.push(`${field} <> \"${operators.not}\"`);
             }
         }
         if (operators.eq) {
             if (Array.isArray(operators.eq)) {
-                conditions.push(`${field} IN (${operators.eq.join(',')})`);
+                conditions.push(`${field} IN (${operators.eq.map(e => `\"${e}\"`).join(',')})`);
             } else {
-                conditions.push(`${field} = ${operators.eq}`);
+                conditions.push(`${field} = \"${operators.eq}\"`);
             }
         }
         if (operators.lte || operators.gte) {
