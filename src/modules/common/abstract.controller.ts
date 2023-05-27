@@ -1,4 +1,4 @@
-import { Body, Delete, Get, HttpStatus, Param, ParseIntPipe, Query, Req } from '@nestjs/common';
+import { Delete, Get, HttpStatus, Param, ParseIntPipe, Query } from '@nestjs/common';
 import { BaseRepository } from './base-repository';
 import { BaseEntity } from 'typeorm';
 import { EntityFilter, Filter } from './entity-filter';
@@ -31,6 +31,6 @@ export abstract class AbstractController<T extends BaseEntity> {
   @UserAuthGuard()
   public async deleteUserById(@Param('id', new ParseIntPipe()) id: number): Promise<HttpStatus> {
     await this.repository.delete(id);
-    return HttpStatus.OK;
+    return HttpStatus.NO_CONTENT;
   }
 }

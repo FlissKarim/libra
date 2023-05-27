@@ -30,9 +30,6 @@ export class UserController extends AbstractController<User> {
 
   @Put()
   @UserAuthGuard()
-  @ApiResponse({
-    status: HttpStatus.OK,
-  })
   public async updateUser(
     @Req() { user },
     @Body() body: UpdateUserRequestDto,
@@ -42,9 +39,6 @@ export class UserController extends AbstractController<User> {
 
   @Put("mail/configure")
   @UserAuthGuard()
-  @ApiResponse({
-    status: HttpStatus.OK,
-  })
   public async configureMail(
     @Req() { user },
     @Body() body: any,
@@ -54,9 +48,6 @@ export class UserController extends AbstractController<User> {
 
   @Post("mail")
   @UserAuthGuard()
-  @ApiResponse({
-    status: HttpStatus.OK,
-  })
   public async sendMail(
     @Req() { user },
     @Body() body: any,

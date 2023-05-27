@@ -1,4 +1,4 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common';
 import { Connection, Repository } from 'typeorm';
 import { User } from '../../../entity/user';
 import { InjectRepository } from '@nestjs/typeorm';
@@ -22,7 +22,7 @@ export class UserService extends BaseRepository<User> {
 
       return user;
     } catch (e) {
-      throw new Error('Error getting user data');
+      throw new BadRequestException({ EN: 'Error getting user data' });
     }
   }
 }

@@ -1,6 +1,6 @@
 import { Aggregation, Aggregations, Operator, Operators, Property } from "src/entity/base/filtrable";
 import { BaseEntity, SelectQueryBuilder } from "typeorm";
-import { Injectable } from "@nestjs/common";
+import { BadRequestException, Injectable } from "@nestjs/common";
 import { BaseRepository } from "./base-repository";
 
 export type Filter<T> = {
@@ -72,7 +72,7 @@ export class EntityFilter<T extends BaseEntity> {
                 const cnd = this.buildCondition(target, fields[field]);
                 cnd && whereFn(cnd);
             } else {
-                throw Error("Unkown property.");
+                throw new BadRequestException({ EN: "Unkown property." });
             }
 
         });
@@ -146,7 +146,7 @@ export class EntityFilter<T extends BaseEntity> {
                 } else if (aggregations.includes(e)) {
                     isAggregation = true;
                 } else {
-                    throw Error(`The filtering query is not correct.`);
+                    throw new BadRequestException({ EN: `The filtering query is not correct.` });
                 }
             });
         });

@@ -39,8 +39,7 @@ export class SignupService {
         userId: registeredUser.id,
       };
     } catch (e) {
-      console.log(e)
-      throw new Error('Signup error');
+      throw new BadRequestException({ EN: 'Signup error' });
     }
   }
 }

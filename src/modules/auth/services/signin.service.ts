@@ -37,7 +37,7 @@ export class SigninService {
         token: jwt.sign({ id: user.id }, JWT_SECRET),
       };
     } catch (e) {
-      throw new Error('Incorrect login or password');
+      throw new BadRequestException({ EN: 'Incorrect login or password' });
     }
   }
 
