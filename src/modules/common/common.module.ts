@@ -6,7 +6,7 @@ import { LoggerService } from './logger-service';
 import { EntityFilter } from './entity-filter';
 import { UserService } from '../user/service/user.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { User } from 'src/entity/user';
+import { User } from 'src/modules/user/entity/user';
 
 @Module({
     exports: [

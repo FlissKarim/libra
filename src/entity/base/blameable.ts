@@ -1,5 +1,5 @@
 import { JoinColumn, } from 'typeorm';
-import { Resource } from '../resource';
+import { Resource } from '../../modules/resource/entity/resource';
 
 export abstract class Blameable {
   constructor(blamable?: Partial<Blameable>) {

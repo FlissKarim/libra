@@ -46,7 +46,6 @@
     "class-transformer": "^0.5.1",
     "class-validator": "^0.14.0",
     "config": "^3.3.9",
-    "helmet": "^7.0.0",
     "jsonwebtoken": "^9.0.0",
     "nest-commander": "^3.7.1",
     "nodemailer": "^6.9.2",

@@ -6,8 +6,8 @@ import {
   PrimaryGeneratedColumn,
 } from 'typeorm';
 import { Event } from './event';
-import { Identifiable } from './base/identifiable';
-import { Resource } from './resource';
+import { Identifiable } from 'src/entity/base/identifiable';
+import { Resource } from 'src/modules/resource/entity/resource';
 
 
 @Entity({ name: 'invitations' })

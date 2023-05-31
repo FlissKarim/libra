@@ -8,10 +8,10 @@ import {
   OneToMany,
   PrimaryGeneratedColumn,
 } from 'typeorm';
-import { Resource } from './resource';
 import { Invitation } from './invitation';
 import { Planning } from './planning';
-import { Identifiable } from './base/identifiable';
+import { Identifiable } from 'src/entity/base/identifiable';
+import { Resource } from 'src/modules/resource/entity/resource';
 
 
 @Entity({ name: 'events' })

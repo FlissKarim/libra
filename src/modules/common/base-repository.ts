@@ -35,11 +35,11 @@ export abstract class BaseRepository<T extends BaseEntity>
         return this.repository.find();
     }
 
-    async findById(id: any): Promise<T> {
+    async findById(id: any): Promise<T | null> {
         return await this.repository.findOneBy(id);
     }
 
-    async findOneBy(field: FindOptionsWhere<T>): Promise<T> {
+    async findOneBy(field: FindOptionsWhere<T>): Promise<T | null> {
         return await this.repository.findOneBy(field);
     }
 

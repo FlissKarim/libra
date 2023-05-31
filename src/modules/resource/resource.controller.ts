@@ -1,4 +1,27 @@
-import { Controller } from '@nestjs/common';
+import { Body, Controller, Put } from '@nestjs/common';
+import { AbstractController } from '../common/abstract.controller';
+import { Resource } from 'src/modules/resource/entity/resource';
+import { UserAuthGuard } from '../auth/user-auth-guard';
+import { ResourceService } from './resource.service';
+import { EntityFilter } from '../common/entity-filter';
+import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 
+@ApiBearerAuth()
+@ApiTags(`[/resources] - Resource module`)
 @Controller('resource')
-export class ResourceController { }
+export class ResourceController extends AbstractController<Resource> {
+    constructor(
+        protected readonly resourceService: ResourceService,
+        protected readonly entityFilter: EntityFilter<Resource>
+    ) {
+        super(resourceService, entityFilter);
+    }
+    @Put()
+    @UserAuthGuard()
+
+    update(
+        @Body() body: any,
+    ) {
+        return this.resourceService.update(body.id, body);
+    }
+}

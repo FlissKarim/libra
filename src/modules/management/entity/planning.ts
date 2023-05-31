@@ -10,10 +10,10 @@ import {
   PrimaryGeneratedColumn,
 } from 'typeorm';
 import { Event } from './event';
-import { Company } from './company';
-import { Configuration } from './configuration';
-import { Identifiable } from './base/identifiable';
-import { Resource } from './resource';
+import { Company } from '../../../entity/company';
+import { Configuration } from '../../../entity/configuration';
+import { Identifiable } from '../../../entity/base/identifiable';
+import { Resource } from '../../resource/entity/resource';
 
 
 @Entity({ name: 'plannings' })

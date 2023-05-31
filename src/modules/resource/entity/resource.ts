@@ -5,10 +5,10 @@ import {
   ManyToMany,
   OneToOne,
 } from 'typeorm';
-import { User } from './user';
-import { Company } from './company';
-import { Configuration } from './configuration';
-import { Identifiable } from './base/identifiable';
+import { User } from '../../user/entity/user';
+import { Company } from '../../../entity/company';
+import { Configuration } from '../../../entity/configuration';
+import { Identifiable } from '../../../entity/base/identifiable';
 
 export enum ResourceType {
   ADMIN,

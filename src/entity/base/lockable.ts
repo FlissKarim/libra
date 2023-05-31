@@ -1,5 +1,5 @@
 import { Column, JoinColumn } from 'typeorm';
-import { Resource } from '../resource';
+import { Resource } from '../../modules/resource/entity/resource';
 
 export abstract class Lockable {
   constructor(lockable?: Partial<Lockable>) {

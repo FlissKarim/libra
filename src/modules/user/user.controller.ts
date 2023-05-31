@@ -9,7 +9,7 @@ import {
 import { ApiBearerAuth, ApiResponse, ApiTags } from '@nestjs/swagger';
 
 import { UserAuthGuard } from '../auth/user-auth-guard';
-import { User } from '../../entity/user';
+import { User } from './entity/user';
 import { UpdateUserRequestDto } from './dto/request/updateUser.dto';
 import { UserService } from './service/user.service';
 import { MailService } from '../common/mail-service';

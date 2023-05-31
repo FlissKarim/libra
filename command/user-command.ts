@@ -3,7 +3,7 @@ import { Connection } from 'typeorm';
 import { AbstractCommand, BasicCommandOptions, Progress } from './abstract-command';
 import { UserService } from 'src/modules/user/service/user.service';
 import { ExportService } from 'src/modules/common/export-service';
-import { User } from 'src/entity/user';
+import { User } from 'src/modules/user/entity/user';
 import { LoggerService } from 'src/modules/common/logger-service';
 
 @Command({

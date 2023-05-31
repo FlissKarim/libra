@@ -8,9 +8,9 @@ import {
   PrimaryGeneratedColumn,
   Unique,
 } from 'typeorm';
-import { Resource } from './resource';
-import { Lockable } from './base/lockable';
-import { Identifiable } from './base/identifiable';
+import { Resource } from '../../resource/entity/resource';
+import { Lockable } from '../../../entity/base/lockable';
+import { Identifiable } from '../../../entity/base/identifiable';
 
 export enum Role {
   SUPERADMIN,

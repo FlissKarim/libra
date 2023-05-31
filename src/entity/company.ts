@@ -7,7 +7,7 @@ import {
 } from 'typeorm';
 import { Configuration } from './configuration';
 import { Identifiable } from './base/identifiable';
-import { Resource } from './resource';
+import { Resource } from '../modules/resource/entity/resource';
 
 
 @Entity({ name: 'companies' })

@@ -2,7 +2,7 @@
 import * as nodemailer from 'nodemailer'
 import Mail from 'nodemailer/lib/mailer';
 import { Injectable } from '@nestjs/common';
-import { User } from 'src/entity/user';
+import { User } from 'src/modules/user/entity/user';
 import { LoggerService } from './logger-service';
 
 interface Transport {

@@ -4,8 +4,8 @@ import {
   PrimaryGeneratedColumn,
 } from 'typeorm';
 import { Company } from './company';
-import { Resource } from './resource';
-import { Planning } from './planning';
+import { Resource } from '../modules/resource/entity/resource';
+import { Planning } from '../modules/management/entity/planning';
 import { Identifiable } from './base/identifiable';
 
 
