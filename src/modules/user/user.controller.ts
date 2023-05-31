@@ -13,7 +13,7 @@ import { UpdateUserRequestDto } from './dto/request/updateUser.dto';
 import { MailService } from '../common/mail-service';
 import { AbstractController } from '../common/abstract.controller';
 import { EntityFilter } from '../common/entity-filter';
-import { UserRepository } from './user.service';
+import { UserRepository } from './user.repository';
 
 @ApiBearerAuth()
 @ApiTags(`[/users] - User module`)

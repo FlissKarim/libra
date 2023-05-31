@@ -4,7 +4,7 @@ import * as jwt from 'jsonwebtoken';
 import { SigninRequestDto } from '../dto/request/signin.dto';
 import { SigninResponseDto } from '../dto/response/signin.dto';
 import { crypt } from 'src/utils';
-import { UserRepository } from 'src/modules/user/user.service';
+import { UserRepository } from 'src/modules/user/user.repository';
 
 const JWT_SECRET: string = config.get('jwt.jwt_secret');
 const SALT: string = config.get('account.salt');

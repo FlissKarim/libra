@@ -5,7 +5,7 @@ import { Connection } from 'typeorm';
 import { SignupRequestDto } from '../dto/request/signup.dto';
 import { SignupResponseDto } from '../dto/response/signup.dto';
 import { crypt } from 'src/utils';
-import { UserRepository } from 'src/modules/user/user.service';
+import { UserRepository } from 'src/modules/user/user.repository';
 
 const SALT: string = config.get('account.salt');
 

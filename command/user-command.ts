@@ -4,7 +4,7 @@ import { AbstractCommand, BasicCommandOptions, Progress } from './abstract-comma
 import { ExportService } from 'src/modules/common/export-service';
 import { User } from 'src/modules/user/entity/user';
 import { LoggerService } from 'src/modules/common/logger-service';
-import { UserRepository } from 'src/modules/user/user.service';
+import { UserRepository } from 'src/modules/user/user.repository';
 
 @Command({
     name: 'users',

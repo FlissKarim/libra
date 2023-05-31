@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import * as config from 'config';
 import { crypt } from 'src/utils';
-import { UserRepository } from '../user/user.service';
+import { UserRepository } from '../user/user.repository';
 
 const SALT: string = config.get('account.salt');
 
