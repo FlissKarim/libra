@@ -4,9 +4,9 @@ import { BrockerModule } from '../broker/broker.module';
 import { MailService } from './mail-service';
 import { LoggerService } from './logger-service';
 import { EntityFilter } from './entity-filter';
-import { UserService } from '../user/service/user.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { User } from 'src/modules/user/entity/user';
+import { UserRepository } from '../user/user.service';
 
 @Module({
     exports: [
@@ -20,7 +20,7 @@ import { User } from 'src/modules/user/entity/user';
         MailService,
         LoggerService,
         EntityFilter,
-        UserService,
+        UserRepository,
     ],
     imports: [BrockerModule, TypeOrmModule.forFeature([User])],
 })

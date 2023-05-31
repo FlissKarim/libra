@@ -5,7 +5,7 @@ import { Connection } from 'typeorm';
 import { SignupRequestDto } from '../dto/request/signup.dto';
 import { SignupResponseDto } from '../dto/response/signup.dto';
 import { crypt } from 'src/utils';
-import { UserService } from 'src/modules/user/service/user.service';
+import { UserRepository } from 'src/modules/user/user.service';
 
 const SALT: string = config.get('account.salt');
 
@@ -15,14 +15,14 @@ export class SignupService {
 
   constructor(
     private readonly connection: Connection,
-    private readonly userService: UserService,
+    private readonly userRepository: UserRepository,
   ) { }
 
   public async signup(data: SignupRequestDto): Promise<SignupResponseDto> {
     try {
       const { email, password } = data;
 
-      const user = await this.userService.findOneBy({ email: email });
+      const user = await this.userRepository.findOneBy({ email: email });
 
       if (user) {
         throw new BadRequestException({ EN: 'User with this email already exist' });

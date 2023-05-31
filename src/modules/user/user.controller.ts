@@ -1,31 +1,30 @@
 import {
   Body,
   Controller,
-  HttpStatus,
   Post,
   Put,
   Req,
 } from '@nestjs/common';
-import { ApiBearerAuth, ApiResponse, ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 
 import { UserAuthGuard } from '../auth/user-auth-guard';
 import { User } from './entity/user';
 import { UpdateUserRequestDto } from './dto/request/updateUser.dto';
-import { UserService } from './service/user.service';
 import { MailService } from '../common/mail-service';
 import { AbstractController } from '../common/abstract.controller';
 import { EntityFilter } from '../common/entity-filter';
+import { UserRepository } from './user.service';
 
 @ApiBearerAuth()
 @ApiTags(`[/users] - User module`)
 @Controller('users')
 export class UserController extends AbstractController<User> {
   constructor(
-    protected readonly userService: UserService,
+    protected readonly UserRepository: UserRepository,
     protected readonly entityFilter: EntityFilter<User>,
     protected readonly mailService: MailService,
   ) {
-    super(userService, entityFilter);
+    super(UserRepository, entityFilter);
   }
 
   @Put()
@@ -34,7 +33,7 @@ export class UserController extends AbstractController<User> {
     @Req() { user },
     @Body() body: UpdateUserRequestDto,
   ): Promise<User> {
-    return await this.userService.update(user.id, body);
+    return await this.UserRepository.update(user.id, body);
   }
 
   @Put("mail/configure")

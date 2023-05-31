@@ -1,18 +1,18 @@
 import { Injectable } from '@nestjs/common';
 import * as config from 'config';
 import { crypt } from 'src/utils';
-import { UserService } from '../user/service/user.service';
+import { UserRepository } from '../user/user.service';
 
 const SALT: string = config.get('account.salt');
 
 @Injectable()
 export class AuthService {
   constructor(
-    private userService: UserService,
+    private userRepository: UserRepository,
   ) { }
 
   public async validateUser(name: string, password: string) {
-    const user = await this.userService.findOneBy({ email: name });
+    const user = await this.userRepository.findOneBy({ email: name });
     const cryptedPassword = crypt(password, SALT);
 
     if (user && user.password === cryptedPassword) {

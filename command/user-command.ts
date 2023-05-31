@@ -1,10 +1,10 @@
 import { Command } from 'nest-commander';
 import { Connection } from 'typeorm';
 import { AbstractCommand, BasicCommandOptions, Progress } from './abstract-command';
-import { UserService } from 'src/modules/user/service/user.service';
 import { ExportService } from 'src/modules/common/export-service';
 import { User } from 'src/modules/user/entity/user';
 import { LoggerService } from 'src/modules/common/logger-service';
+import { UserRepository } from 'src/modules/user/user.service';
 
 @Command({
     name: 'users',
@@ -12,7 +12,7 @@ import { LoggerService } from 'src/modules/common/logger-service';
 export class UserCommand extends AbstractCommand {
     constructor(
         protected readonly connection: Connection,
-        protected readonly userService: UserService,
+        protected readonly userRepository: UserRepository,
         protected readonly exportService: ExportService,
         protected readonly logger: LoggerService<any>,
     ) {
@@ -33,8 +33,8 @@ export class UserCommand extends AbstractCommand {
             }
         }
         await this.exportService.export<User>(
-            this.userService,
-            this.userService.getQuery(),
+            this.userRepository,
+            this.userRepository.getQuery(),
             headers,
             tracker
         );

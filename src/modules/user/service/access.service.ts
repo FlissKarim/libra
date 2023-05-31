@@ -1,11 +1,11 @@
 import { Injectable } from '@nestjs/common';
-import { UserService } from './user.service';
 import { Role, User } from 'src/modules/user/entity/user';
+import { UserRepository } from '../user.service';
 
 @Injectable()
 export class AccessService {
   constructor(
-    protected userService: UserService,
+    protected userRepository: UserRepository,
   ) { }
 
   public async isSuperAdmin(): Promise<boolean> {
