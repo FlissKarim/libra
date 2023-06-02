@@ -1,8 +1,10 @@
 import { AmqpConnection, MessageHandlerOptions, Nack } from '@golevelup/nestjs-rabbitmq';
 import { BrokerMessage } from './config';
+import { LoggerService } from '../common/logger.service';
 
 export abstract class AbstractConsumer<Message extends BrokerMessage> {
     constructor(
+        public readonly logger: LoggerService<string>,
         public readonly amqpConnection: AmqpConnection,
     ) {
         const { options, name } = this.configure();
@@ -27,7 +29,9 @@ export abstract class AbstractConsumer<Message extends BrokerMessage> {
         return new Nack();
     }
 
-    public onFail(message: Message, error: Error) { }
+    public onFail(message: Message, error: Error) {
+        this.logger.error(error);
+    }
     public onSuccess(message: Message) { }
 
     abstract consume(message: Message);

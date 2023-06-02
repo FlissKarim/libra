@@ -13,9 +13,6 @@ import { Resource } from 'src/modules/resource/entity/resource';
 @Entity({ name: 'invitations' })
 export class Invitation extends Identifiable {
 
-  @PrimaryGeneratedColumn()
-  public readonly id: number;
-
   @Column()
   public label: string = null;
 

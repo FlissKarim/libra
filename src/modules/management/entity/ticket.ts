@@ -26,7 +26,7 @@ export class Ticket extends Identifiable {
   public priority: Priority = Priority.medium;
 
   @JoinTable()
-  public comments: Comment[] = [];
+  public comments: Comment[];
 
   @ManyToOne(() => Resource, { nullable: true })
   @JoinTable()

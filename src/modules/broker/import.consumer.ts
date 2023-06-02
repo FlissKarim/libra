@@ -4,6 +4,7 @@ import { AmqpConnection, MessageHandlerOptions } from '@golevelup/nestjs-rabbitm
 import { AbstractConsumer } from './abstract.consumer';
 import { BaseRepository } from '../common/base.repository';
 import { BaseEntity } from 'typeorm';
+import { LoggerService } from '../common/logger.service';
 
 export interface ImportMessage extends BrokerMessage {
     headers: any[],
@@ -14,18 +15,24 @@ export interface ImportMessage extends BrokerMessage {
 @Injectable()
 export class ImportConsumer<T extends BaseEntity> extends AbstractConsumer<ImportMessage> {
     private repositories: Record<string, BaseRepository<T>> = {};
-    constructor(public readonly amqpConnection: AmqpConnection,
+    constructor(
+        public readonly amqpConnection: AmqpConnection,
+        public readonly logger: LoggerService<string>,
     ) {
-        super(amqpConnection);
+        super(logger, amqpConnection);
     }
 
-    public consume(message: ImportMessage) {
+    public async consume(message: ImportMessage) {
         if (!(message.target in this.repositories)) {
             throw new Error("The repository's entity is not set.");
         }
         const repository = this.repositories[message.target];
-        let entity = repository.creator(message.columns, message.headers as any);
-        console.log(entity);
+        try {
+            let entity = repository.creator(message.columns, message.headers as any);
+            await repository.create(entity);
+        } catch (error) {
+            console.error(error)
+        }
     }
 
     public setEntityRepository(repository: BaseRepository<T>) {

@@ -17,9 +17,6 @@ export class Company extends Identifiable {
     !!company && Object.assign(this, company);
   }
 
-  @PrimaryGeneratedColumn()
-  public readonly id: number;
-
   @Column()
   public label: string;
 

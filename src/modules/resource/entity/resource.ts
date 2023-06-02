@@ -38,17 +38,14 @@ export class Resource extends Identifiable {
   public biography: string = null;
 
   @Column()
-  public type: ResourceType = null;
+  public type: ResourceType = ResourceType.EMPLOYE;
 
-  @Column()
+  //@Column()
   public rights: string[] = [];
 
   @OneToOne(() => User, { nullable: true })
   @JoinTable()
   public user?: User = null;
 
-  @ManyToMany(() => Company, { nullable: true })
-  @JoinTable()
-  public companies: Company[] = [];
 
 }

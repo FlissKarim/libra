@@ -16,7 +16,4 @@ export class Configuration extends Identifiable {
     !!configuration && Object.assign(this, configuration);
   }
 
-  @PrimaryGeneratedColumn()
-  public readonly id: number;
-
 }

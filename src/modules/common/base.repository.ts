@@ -1,6 +1,6 @@
 
 import { convert, isWritable } from 'src/utils';
-import { BaseEntity, Connection, FindOptionsWhere, Repository, SelectQueryBuilder } from 'typeorm';
+import { BaseEntity, Connection, EntityManager, FindOptionsWhere, Repository, SelectQueryBuilder } from 'typeorm';
 
 export abstract class BaseRepository<T extends BaseEntity>
 {
@@ -21,10 +21,6 @@ export abstract class BaseRepository<T extends BaseEntity>
             }
         });
         return base;
-    }
-
-    public targetName(): string {
-        return (this.repository.target as any).name;
     }
 
     async count(): Promise<number> {
@@ -88,5 +84,9 @@ export abstract class BaseRepository<T extends BaseEntity>
 
     public isColumn(propertyName: string): boolean {
         return this.repository.metadata.ownColumns.some(r => r.propertyName === propertyName);
+    }
+
+    public targetName(): string {
+        return (this.repository.target as any).name;
     }
 }

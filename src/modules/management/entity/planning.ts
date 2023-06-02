@@ -23,9 +23,6 @@ export class Planning extends Identifiable {
     !!planning && Object.assign(this, planning);
   }
 
-  @PrimaryGeneratedColumn()
-  public readonly id: number;
-
   @Column()
   public label: string;
 

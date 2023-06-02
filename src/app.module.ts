@@ -21,9 +21,13 @@ export const DEFAULT_TYPEORM_CONFIG: object = config.get('typeorm');
   imports: [
     TypeOrmModule.forRoot({
       ...DEFAULT_TYPEORM_CONFIG,
-      entities: [__dirname + '/entity/*{.ts,.js}'],
+      entities: [
+        __dirname + '/src/**/entity/*{.js,.ts}',
+        __dirname + '/src/entity/*{.js,.ts}',
+      ],
       migrations: [__dirname + '/migration/*{.ts,.js}'],
       namingStrategy: new SnakeNamingStrategy(),
+      autoLoadEntities: true,
     }),
     AuthModule,
     UserModule,
@@ -50,6 +54,7 @@ export class AppModule {
         "firstName",
         "lastName",
         "birthday",
+        "biography",
       ],
       'imports/resources.csv',
       repo,

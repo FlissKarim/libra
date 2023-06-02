@@ -21,9 +21,6 @@ export class Event extends Identifiable {
     !!event && Object.assign(this, event);
   }
 
-  @PrimaryGeneratedColumn()
-  public readonly id: number;
-
   @Column()
   public label: string = null;
 

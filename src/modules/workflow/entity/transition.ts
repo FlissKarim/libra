@@ -10,7 +10,7 @@ export class Transition extends BaseEntity {
   @Column({ nullable: true })
   public role?: Role = null;
 
-  @Column()
+  //@Column()
   public rights: string[] = [];
 
   @ManyToOne(() => Resource, { nullable: true })
