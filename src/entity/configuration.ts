@@ -19,12 +19,4 @@ export class Configuration extends Identifiable {
   @PrimaryGeneratedColumn()
   public readonly id: number;
 
-  @OneToOne(type => Company, company => company.configuration, { nullable: true })
-  public company: Company;
-
-  @OneToOne(type => Resource, resource => resource.configuration, { nullable: true })
-  public resource: Resource;
-
-  @OneToOne(type => Planning, planning => planning.configuration, { nullable: true })
-  public planning: Planning;
 }

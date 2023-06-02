@@ -10,9 +10,9 @@ import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { UserAuthGuard } from '../auth/user-auth-guard';
 import { User } from './entity/user';
 import { UpdateUserRequestDto } from './dto/request/updateUser.dto';
-import { MailService } from '../common/mail-service';
+import { MailService } from '../common/mail.service';
 import { AbstractController } from '../common/abstract.controller';
-import { EntityFilter } from '../common/entity-filter';
+import { EntityFilter } from '../common/entity.filter';
 import { UserRepository } from './user.repository';
 
 @ApiBearerAuth()

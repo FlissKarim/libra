@@ -1,5 +1,5 @@
 import { BaseEntity, Column } from 'typeorm';
-import { Status } from '../../modules/workflow/workflow-registry';
+import { Status } from '../../modules/workflow/workflow.registry';
 
 export abstract class Workflowable extends BaseEntity {
   constructor(workflow?: Partial<Workflowable>) {

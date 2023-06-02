@@ -25,16 +25,16 @@ export class Event extends Identifiable {
   public readonly id: number;
 
   @Column()
-  public label: string;
+  public label: string = null;
 
   @Column()
-  public description: string;
+  public description: string = null;
 
   @Column({ type: 'date' })
-  public start: Date;
+  public start: Date = null;
 
   @Column({ type: 'date' })
-  public end: Date;
+  public end: Date = null;
 
   @JoinColumn()
   public readonly createdBy: Resource;

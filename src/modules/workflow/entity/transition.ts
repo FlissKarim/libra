@@ -8,13 +8,13 @@ export class Transition extends BaseEntity {
   public readonly code: string;
 
   @Column({ nullable: true })
-  public role?: Role;
+  public role?: Role = null;
 
   @Column()
   public rights: string[] = [];
 
   @ManyToOne(() => Resource, { nullable: true })
   @JoinTable()
-  public createdBy?: Resource;
+  public createdBy?: Resource = null;
 
 }

@@ -1,9 +1,9 @@
 import { Command } from 'nest-commander';
 import { Connection } from 'typeorm';
 import { AbstractCommand, BasicCommandOptions, Progress } from './abstract-command';
-import { ExportService } from 'src/modules/common/export-service';
+import { ExportService } from 'src/modules/common/export.service';
 import { User } from 'src/modules/user/entity/user';
-import { LoggerService } from 'src/modules/common/logger-service';
+import { LoggerService } from 'src/modules/common/logger.service';
 import { UserRepository } from 'src/modules/user/user.repository';
 
 @Command({

@@ -17,13 +17,13 @@ export class Ticket extends Identifiable {
   }
 
   @Column()
-  public label: string;
+  public label: string = null;
 
   @Column()
-  public description: string;
+  public description: string = null;
 
   @Column({ default: Priority.medium })
-  public priority: Priority;
+  public priority: Priority = Priority.medium;
 
   @JoinTable()
   public comments: Comment[] = [];

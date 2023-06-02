@@ -3,7 +3,7 @@ import { AbstractController } from '../common/abstract.controller';
 import { Resource } from 'src/modules/resource/entity/resource';
 import { UserAuthGuard } from '../auth/user-auth-guard';
 import { ResourceRepository } from './resource.repository';
-import { EntityFilter } from '../common/entity-filter';
+import { EntityFilter } from '../common/entity.filter';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 
 @ApiBearerAuth()

@@ -29,6 +29,4 @@ export class Company extends Identifiable {
   @JoinColumn()
   public readonly createdBy: Resource;
 
-  @OneToOne(type => Configuration, Configuration => Configuration.company, { nullable: true })
-  public configuration: Configuration;
 }

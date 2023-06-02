@@ -1,11 +1,9 @@
-import { AmqpConnection, MessageHandlerOptions } from '@golevelup/nestjs-rabbitmq';
+import { AmqpConnection, MessageHandlerOptions, Nack } from '@golevelup/nestjs-rabbitmq';
 import { BrokerMessage } from './config';
-import { AbstractProducer } from './abstract.producer';
 
-export abstract class AbstractConsumer {
+export abstract class AbstractConsumer<Message extends BrokerMessage> {
     constructor(
         public readonly amqpConnection: AmqpConnection,
-        private readonly producer: AbstractProducer,
     ) {
         const { options, name } = this.configure();
         this.amqpConnection.createSubscriber(
@@ -15,24 +13,23 @@ export abstract class AbstractConsumer {
         );
     }
 
-    readonly handle = async (message: BrokerMessage): Promise<any> => {
+    readonly handle = async (message: Message): Promise<Nack> => {
         try {
             await this.consume(message);
         } catch (error) {
-            return this.onFail(message, error);
+            await this.onFail(message, error);
+            if (message.retryOnFail) {
+                delete message.retryOnFail;
+                return new Nack(true);
+            }
         }
-        return this.onSuccess(message);
+        await this.onSuccess(message);
+        return new Nack();
     }
 
-    public onFail(message: BrokerMessage, error: Error) {
-        if (message.retryOnFail) {
-            delete message.retryOnFail;
-            this.producer.publish(message);
-        }
-    }
+    public onFail(message: Message, error: Error) { }
+    public onSuccess(message: Message) { }
 
-    public onSuccess(message: BrokerMessage) { }
-
-    abstract consume(message: BrokerMessage);
+    abstract consume(message: Message);
     abstract configure(): { options: MessageHandlerOptions, name: string };
 }

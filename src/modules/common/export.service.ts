@@ -2,8 +2,8 @@
 import { BaseEntity, SelectQueryBuilder } from 'typeorm';
 import * as fs from 'fs';
 import { randomUUID } from 'crypto';
-import { BaseRepository } from './base-repository';
-import { LoggerService } from './logger-service';
+import { BaseRepository } from './base.repository';
+import { LoggerService } from './logger.service';
 
 type Format = 'csv' | 'excel';
 

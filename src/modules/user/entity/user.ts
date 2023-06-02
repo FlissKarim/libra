@@ -30,16 +30,16 @@ export class User extends Identifiable {
   public readonly id: number;
 
   @Column()
-  public email: string;
+  public email: string = null;
 
   @Column()
-  public password: string;
+  public password: string = null;
 
   @Column({ default: Role.USER })
   public role: Role = Role.USER;
 
   @ManyToOne(() => Resource, { nullable: true })
   @JoinTable()
-  public resource?: Resource;
+  public resource?: Resource = null;
 
 }

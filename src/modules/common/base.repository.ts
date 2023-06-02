@@ -1,5 +1,5 @@
 
-import { isWritable } from 'src/utils';
+import { convert, isWritable } from 'src/utils';
 import { BaseEntity, Connection, FindOptionsWhere, Repository, SelectQueryBuilder } from 'typeorm';
 
 export abstract class BaseRepository<T extends BaseEntity>
@@ -8,23 +8,23 @@ export abstract class BaseRepository<T extends BaseEntity>
         protected readonly connection: Connection,
     ) { }
 
-    public creator<T>(values: any[], mapping: { [column: number]: keyof T }, base: T): T {
+    public creator<T>(values: any[], mapping: { [column: number]: keyof T }): T {
+        const base = new (this.repository.target as any)();
         Object.keys(mapping).forEach(column => {
             let value: any = values[column] as never;
             let field: keyof T = mapping[column];
             if (isWritable(base, field)) {
                 const type = Reflect.getMetadata("design:type", base, field as any);
-                if (type === Number) {
-                    value = Number(value);
-                } if (type === Boolean) {
-                    value = Boolean(value);
-                } else if (type === Date) {
-                    value = new Date(value);
-                }
-                base[field as any] = value;
+                base[field as any] = convert(type, value);
+            } else {
+                throw Error(`The field "${String(field)}" is not writable.`);
             }
         });
         return base;
+    }
+
+    public targetName(): string {
+        return (this.repository.target as any).name;
     }
 
     async count(): Promise<number> {

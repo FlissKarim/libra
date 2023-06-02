@@ -17,13 +17,13 @@ export class Invitation extends Identifiable {
   public readonly id: number;
 
   @Column()
-  public label: string;
+  public label: string = null;
 
   @Column()
-  public description: string;
+  public description: string = null;
 
   @JoinColumn()
-  public readonly createdBy: Resource;
+  public readonly createdBy: Resource = null;
 
   @ManyToOne(type => Event, { onDelete: 'CASCADE' })
   public readonly event: Event;

@@ -1,9 +1,9 @@
 import { Aggregation, Aggregations, Operator, Operators, Property } from "src/entity/base/filtrable";
 import { BaseEntity, SelectQueryBuilder } from "typeorm";
 import { BadRequestException, Injectable } from "@nestjs/common";
-import { BaseRepository } from "./base-repository";
+import { BaseRepository } from "./base.repository";
 
-export type Filter<T> = {
+export type Filter = {
     strategy: 'or' | 'and',
     itemsPerPage?: number,
     page?: number,
@@ -12,7 +12,7 @@ const itemsPerPage = 200;
 
 @Injectable()
 export class EntityFilter<T extends BaseEntity> {
-    public async fetch(filters: Property<T> & Filter<T>, repository: BaseRepository<T>): Promise<any[] | T[]> {
+    public async fetch(filters: Property<T> & Filter, repository: BaseRepository<T>): Promise<any[] | T[]> {
         try {
             this.setDefault(filters);
             let { strategy, itemsPerPage, page, ...reste } = filters;
@@ -29,7 +29,7 @@ export class EntityFilter<T extends BaseEntity> {
         return [];
     }
 
-    private async filter(filters: Property<T> & Filter<T>, repository: BaseRepository<T>): Promise<T[]> {
+    private async filter(filters: Property<T> & Filter, repository: BaseRepository<T>): Promise<T[]> {
         const qb = await this.buildQuery(filters, repository);
         let { strategy, itemsPerPage, page, ...reste } = filters;
         if (page) {
@@ -39,7 +39,7 @@ export class EntityFilter<T extends BaseEntity> {
         return qb.getMany();
     }
 
-    private async aggregate(filters: Property<T> & Filter<T>, repository: BaseRepository<T>): Promise<any[]> {
+    private async aggregate(filters: Property<T> & Filter, repository: BaseRepository<T>): Promise<any[]> {
         const qb = await this.buildQuery(filters, repository);
         let { strategy, itemsPerPage, page, ...reste } = filters;
         const fields: Property<T> = reste as any;
@@ -153,7 +153,7 @@ export class EntityFilter<T extends BaseEntity> {
         return { isFilter, isAggregation };
     }
 
-    private setDefault(filters: Property<T> & Filter<T>): void {
+    private setDefault(filters: Property<T> & Filter): void {
         if (!filters.itemsPerPage) {
             filters.itemsPerPage = itemsPerPage;
         }

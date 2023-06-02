@@ -29,3 +29,22 @@ export function crypt(password: string, salt: string): string {
         .update(password)
         .digest('hex');
 }
+
+export function convert(type: any, value: number | string): any {
+    switch (type) {
+        case undefined:
+            value = null;
+            break;
+        case Boolean:
+            value = type([1, '1', 'true'].includes(value));
+            break;
+        case Number:
+        case String:
+            value = type(value);
+            break;
+        default:
+            value = new type(value);
+            break;
+    }
+    return value;
+}

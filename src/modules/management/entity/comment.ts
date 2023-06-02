@@ -11,7 +11,7 @@ export class Comment extends Identifiable {
   }
 
   @Column()
-  public text: string;
+  public text: string = null;
 
   @ManyToOne(() => Resource, { nullable: true })
   @JoinTable()

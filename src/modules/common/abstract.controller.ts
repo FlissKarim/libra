@@ -1,7 +1,7 @@
 import { Delete, Get, HttpStatus, Param, ParseIntPipe, Query } from '@nestjs/common';
-import { BaseRepository } from './base-repository';
+import { BaseRepository } from './base.repository';
 import { BaseEntity } from 'typeorm';
-import { EntityFilter, Filter } from './entity-filter';
+import { EntityFilter, Filter } from './entity.filter';
 import { UserAuthGuard } from '../auth/user-auth-guard';
 import { Property } from 'src/entity/base/filtrable';
 
@@ -16,7 +16,7 @@ export abstract class AbstractController<T extends BaseEntity> {
   */
   @Get()
   @UserAuthGuard()
-  getCollection(@Query() query: Property<T> & Filter<T>) {
+  getCollection(@Query() query: Property<T> & Filter) {
     return this.entityFilter.fetch(query, this.repository);
   }
 

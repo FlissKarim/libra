@@ -1,12 +1,12 @@
 import { Injectable } from '@nestjs/common';
-import { BaseRepository } from '../common/base-repository';
+import { BaseRepository } from '../common/base.repository';
 import { BaseEntity } from 'typeorm';
 import { Workflowable } from 'src/entity/base/workflowable';
-import { Registry, TransitionRegistry } from 'src/modules/workflow/workflow-registry';
+import { Registry, TransitionRegistry } from 'src/modules/workflow/workflow.registry';
 import { User } from 'src/modules/user/entity/user';
 import { AccessService } from '../user/service/access.service';
 import { Transition } from './entity/transition';
-import { TransitionRepository } from './transition-repository';
+import { TransitionRepository } from './transition.repository';
 
 @Injectable()
 export class WorkflowService<T extends Workflowable & BaseEntity> {

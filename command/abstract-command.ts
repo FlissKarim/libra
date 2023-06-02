@@ -1,7 +1,7 @@
 import { CommandRunner } from 'nest-commander';
 import { Connection } from 'typeorm';
 import * as ProgressBar from 'progress';
-import { LoggerService } from 'src/modules/common/logger-service';
+import { LoggerService } from 'src/modules/common/logger.service';
 
 export interface BasicCommandOptions {
     progress?: void;

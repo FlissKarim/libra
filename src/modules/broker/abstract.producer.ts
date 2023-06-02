@@ -1,7 +1,7 @@
 import { AmqpConnection } from '@golevelup/nestjs-rabbitmq';
 import { Broker, BrokerMessage } from './config';
 
-export abstract class AbstractProducer {
+export abstract class AbstractProducer<Message extends BrokerMessage> {
     private exchange = Broker.DEFAULT_EXCHANGE;
     private queue = Broker.DEFAULT_QUEUE;
 
@@ -13,7 +13,7 @@ export abstract class AbstractProducer {
         this.queue = queue;
     }
 
-    public publish(message: BrokerMessage): Promise<any> {
+    public publish(message: Message): Promise<any> {
         return this.amqpConnection.publish(this.exchange, this.queue, message);
     }
 

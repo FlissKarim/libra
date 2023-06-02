@@ -45,6 +45,4 @@ export class Planning extends Identifiable {
   @JoinTable()
   public companies: Company[] = null;
 
-  @OneToOne(type => Configuration, Configuration => Configuration.planning, { nullable: true })
-  public configuration: Configuration;
 }

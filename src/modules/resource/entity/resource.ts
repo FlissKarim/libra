@@ -21,38 +21,34 @@ export enum ResourceType {
 
 @Entity({ name: 'resources' })
 export class Resource extends Identifiable {
-  constructor() {
-    super()
-  }
 
   @Column({ unique: true })
-  public email: string;
+  public email: string = null;
 
   @Column()
-  public firstName: string;
+  public firstName: string = null;
 
   @Column()
-  public lastName: string;
+  public lastName: string = null;
 
   @Column({ type: 'date' })
-  public birthday: Date;
+  public birthday: Date = null;
 
   @Column()
-  public biography: string;
+  public biography: string = null;
 
   @Column()
-  public type: ResourceType;
+  public type: ResourceType = null;
 
+  @Column()
   public rights: string[] = [];
 
   @OneToOne(() => User, { nullable: true })
   @JoinTable()
-  public user?: User;
+  public user?: User = null;
 
   @ManyToMany(() => Company, { nullable: true })
   @JoinTable()
-  public companies: Company[] = null;
+  public companies: Company[] = [];
 
-  @OneToOne(type => Configuration, Configuration => Configuration.resource, { nullable: true })
-  public configuration: Configuration;
 }

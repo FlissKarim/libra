@@ -12,6 +12,9 @@ import { CommandModule } from 'command/command.module';
 import { BrockerModule } from './modules/broker/broker.module';
 import { RabbitMQModule } from '@golevelup/nestjs-rabbitmq';
 import { Broker } from './modules/broker/config';
+import { ResourceRepository } from './modules/resource/resource.repository';
+import { Resource } from './modules/resource/entity/resource';
+import { ImportService } from './modules/common/import.service';
 export const DEFAULT_TYPEORM_CONFIG: object = config.get('typeorm');
 
 @Module({
@@ -27,14 +30,32 @@ export const DEFAULT_TYPEORM_CONFIG: object = config.get('typeorm');
     ResourceModule,
     CommonModule,
     CommandModule,
-    //RabbitMQModule.forRoot(RabbitMQModule, Broker.CONFIG),
-    //BrockerModule,
+    RabbitMQModule.forRootAsync(RabbitMQModule, Broker.CONFIG),
+    BrockerModule,
   ],
   providers: [
     {
       provide: APP_GUARD,
       useClass: UserAccessGuard,
     },
+    ImportService,
   ],
 })
-export class AppModule { }
+export class AppModule {
+  constructor(private repo: ResourceRepository,
+    private importService: ImportService<Resource>) {
+    this.importService.import(
+      [
+        "email",
+        "firstName",
+        "lastName",
+        "birthday",
+      ],
+      'imports/resources.csv',
+      repo,
+      {
+        indexes: { header: 1, body: 2 }
+      }
+    );
+  }
+}
