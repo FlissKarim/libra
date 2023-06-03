@@ -34,7 +34,6 @@ export const DEFAULT_TYPEORM_CONFIG: object = config.get('typeorm');
     ResourceModule,
     CommonModule,
     CommandModule,
-    RabbitMQModule.forRootAsync(RabbitMQModule, Broker.CONFIG),
     BrockerModule,
   ],
   providers: [
