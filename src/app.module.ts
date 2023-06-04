@@ -10,11 +10,11 @@ import { ResourceModule } from './modules/resource/resource.module';
 import { CommonModule } from './modules/common/common.module';
 import { CommandModule } from 'command/command.module';
 import { BrockerModule } from './modules/broker/broker.module';
-import { RabbitMQModule } from '@golevelup/nestjs-rabbitmq';
-import { Broker } from './modules/broker/config';
-import { ResourceRepository } from './modules/resource/resource.repository';
-import { Resource } from './modules/resource/entity/resource';
-import { ImportService } from './modules/common/import.service';
+import { ViewModule } from './modules/viewer/viewer.module';
+import { ViewerService } from './modules/viewer/viewer.service';
+import { Quote } from './modules/sale/entity/quote';
+import { TranslationService } from './modules/common/translation.service';
+import { AcceptLanguageResolver, I18nModule, QueryResolver } from 'nestjs-i18n';
 export const DEFAULT_TYPEORM_CONFIG: object = config.get('typeorm');
 
 @Module({
@@ -29,37 +29,36 @@ export const DEFAULT_TYPEORM_CONFIG: object = config.get('typeorm');
       namingStrategy: new SnakeNamingStrategy(),
       autoLoadEntities: true,
     }),
+    I18nModule.forRoot({
+      fallbackLanguage: 'en',
+      loaderOptions: {
+        path: 'src/i18n/',
+        watch: true,
+      },
+      resolvers: [
+        { use: QueryResolver, options: ['lang'] },
+        AcceptLanguageResolver,
+      ],
+    }),
     AuthModule,
     UserModule,
     ResourceModule,
     CommonModule,
     CommandModule,
     BrockerModule,
+    ViewModule,
   ],
   providers: [
     {
       provide: APP_GUARD,
       useClass: UserAccessGuard,
     },
-    ImportService,
   ],
 })
 export class AppModule {
-  constructor(private repo: ResourceRepository,
-    private importService: ImportService<Resource>) {
-    this.importService.import(
-      [
-        "email",
-        "firstName",
-        "lastName",
-        "birthday",
-        "biography",
-      ],
-      'imports/resources.csv',
-      repo,
-      {
-        indexes: { header: 1, body: 2 }
-      }
-    );
+  constructor(private viewerService: ViewerService,
+    public translationService: TranslationService) {
+    let quote = new Quote();
+    this.viewerService.generateView(quote);
   }
 }
