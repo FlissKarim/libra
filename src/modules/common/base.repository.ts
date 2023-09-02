@@ -1,6 +1,6 @@
 
 import { convert, isWritable } from 'src/utils';
-import { BaseEntity, Connection, EntityManager, FindOptionsWhere, Repository, SelectQueryBuilder } from 'typeorm';
+import { BaseEntity, Connection, FindOptionsWhere, Repository, SelectQueryBuilder } from 'typeorm';
 
 export abstract class BaseRepository<T extends BaseEntity>
 {

@@ -7,7 +7,6 @@ import { EntityFilter } from './entity.filter';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { User } from 'src/modules/user/entity/user';
 import { UserRepository } from '../user/user.repository';
-import { TranslationService } from './translation.service';
 
 @Module({
     exports: [
@@ -15,7 +14,6 @@ import { TranslationService } from './translation.service';
         MailService,
         LoggerService,
         EntityFilter,
-        TranslationService,
     ],
     providers: [
         ExportService,
@@ -23,7 +21,6 @@ import { TranslationService } from './translation.service';
         LoggerService,
         EntityFilter,
         UserRepository,
-        TranslationService,
     ],
     imports: [
         BrockerModule,

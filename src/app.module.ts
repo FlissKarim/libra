@@ -10,10 +10,6 @@ import { ResourceModule } from './modules/resource/resource.module';
 import { CommonModule } from './modules/common/common.module';
 import { CommandModule } from 'command/command.module';
 import { BrockerModule } from './modules/broker/broker.module';
-import { ViewModule } from './modules/viewer/viewer.module';
-import { ViewerService } from './modules/viewer/viewer.service';
-import { Quote } from './modules/sale/entity/quote';
-import { TranslationService } from './modules/common/translation.service';
 import { AcceptLanguageResolver, I18nModule, QueryResolver } from 'nestjs-i18n';
 export const DEFAULT_TYPEORM_CONFIG: object = config.get('typeorm');
 
@@ -46,7 +42,6 @@ export const DEFAULT_TYPEORM_CONFIG: object = config.get('typeorm');
     CommonModule,
     CommandModule,
     BrockerModule,
-    ViewModule,
   ],
   providers: [
     {
@@ -55,10 +50,4 @@ export const DEFAULT_TYPEORM_CONFIG: object = config.get('typeorm');
     },
   ],
 })
-export class AppModule {
-  constructor(private viewerService: ViewerService,
-    public translationService: TranslationService) {
-    let quote = new Quote();
-    this.viewerService.generateView(quote);
-  }
-}
+export class AppModule {}

@@ -5,7 +5,7 @@ import { randomUUID } from 'crypto';
 import { BaseRepository } from './base.repository';
 import { LoggerService } from './logger.service';
 
-type Format = 'csv' | 'excel';
+type Format = 'csv';
 
 export class ExportService {
     constructor(
